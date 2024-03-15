@@ -25,9 +25,17 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
+    category_name = serializers.SerializerMethodField()
+    author_name = serializers.SerializerMethodField()
     comments = CommentSerializer(read_only=True, many=True)
     tags = TagSerializer(read_only=True, many=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'content', 'published_date', 'author', 'category', 'comments', 'tags')
+        fields = ('id', 'title', 'content', 'published_date', 'author', 'author_name', 'category', 'category_name', 'comments', 'tags', 'featured_image', 'thumbnail')
+
+    def get_author_name(self, obj):
+        return obj.author.username if obj.author else None
+
+    def get_category_name(self, obj):
+        return obj.category.name if obj.category else None
