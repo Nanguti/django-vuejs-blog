@@ -58,7 +58,7 @@
                       />
                       <div class="text-sm leading-4">
                         <div class="text-slate-900 dark:text-slate-200">
-                          Author Name{{ post.author_name }}
+                          Author Name:{{ " " }} {{ post.author_name }}
                         </div>
                       </div>
                     </li>
