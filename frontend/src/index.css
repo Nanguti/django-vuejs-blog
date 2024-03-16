@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.main-with-background {
+  background-image: url("/showcase/beams@75.2e4c33d3.jpg"); /* First image for light mode */
+  background-size: cover; /* Ensure image covers the element */
+  background-position: center; /* Center the image */
+  /* Add media query for dark mode: */
+  @media (prefers-color-scheme: dark) {
+    background-image: url("/showcase/beams-index-dark@75.8f02ce8a.jpg"); /* Second image for dark mode */
+  }
+}

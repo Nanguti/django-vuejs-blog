@@ -1,28 +1,9 @@
 <template>
   <div>
-    <DefaultLayout>
+    <DefaultLayout
+      class="bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100"
+    >
       <main class="mt-16 sm:mt-20 mb-16 sm:mb-20 relative">
-        <img
-          alt=""
-          fetchpriority="high"
-          width="2170"
-          height="1494"
-          decoding="async"
-          data-nimg="1"
-          class="hidden dark:sm:hidden sm:block absolute top-[-6.25rem] left-1/2 max-w-none w-[67.8125rem] ml-[-46.875rem] pointer-events-none"
-          src="/showcase/beams@75.2e4c33d3.jpg"
-          style="color: transparent"
-        /><img
-          alt=""
-          fetchpriority="high"
-          width="1318"
-          height="1190"
-          decoding="async"
-          data-nimg="1"
-          class="hidden dark:block absolute top-[-5rem] left-1/2 max-w-none w-[41.1875rem] ml-[-40rem] pointer-events-none"
-          src="/showcase/beams-index-dark@75.8f02ce8a.jpg"
-          style="color: transparent"
-        />
         <div
           class="relative max-w-3xl px-4 sm:px-6 lg:px-8 mx-auto sm:text-center"
         >
@@ -31,7 +12,7 @@
           </h1>
         </div>
         <ul
-          class="grid max-w-[26rem] sm:max-w-[52.5rem] mt-4 sm:mt-4 md:mt-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 mx-auto gap-6 lg:gap-y-8 xl:gap-x-8 lg:max-w-7xl px-4 sm:px-6 lg:px-8"
+          class="grid max-w-[26rem] sm:max-w-[52.5rem] mt-4 sm:mt-4 md:mt-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 mx-auto gap-6 lg:gap-y-8 xl:gap-x-8 lg:max-w-7xl px-4 sm:px-6 lg:px-8 mb-8"
         >
           <li
             v-for="post in posts"
@@ -45,13 +26,11 @@
               <img
                 alt=""
                 fetchpriority="high"
-                width="672"
-                height="494"
                 decoding="async"
                 data-nimg="1"
                 class="absolute inset-0 w-full h-full"
                 :src="post.thumbnail"
-                style="color: transparent"
+                style="color: transprent"
               />
             </div>
             <div class="flex flex-wrap items-center mt-6">
@@ -81,12 +60,27 @@
               <p
                 class="w-full flex-none text-[0.8125rem] leading-6 text-slate-500 dark:text-slate-400"
               >
-                {{ truncateText(post.content, 180) }}
+                {{ post.content }}
               </p>
             </div>
           </li>
         </ul>
+        <Pagination
+          :totalCount="totalCount"
+          :currentPage="currentPage"
+          :totalPages="totalPages"
+          @goToPage="getPosts"
+        />
       </main>
+      <a
+        href="#"
+        target="_blank"
+        class="md:absolute bottom-0 right-0 p-4 float-right"
+        ><img
+          src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-3.svg"
+          alt="Buy Me A Coffee"
+          class="transition-all rounded-full w-14 -rotate-45 hover:shadow-sm shadow-lg ring hover:ring-4 ring-white"
+      /></a>
     </DefaultLayout>
   </div>
 </template>
@@ -94,21 +88,13 @@
 import usePosts from "../composables/posts";
 import { onMounted } from "vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
+import Pagination from "../components/Pagination.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
-const { posts, getPosts } = usePosts();
+const { posts, totalCount, currentPage, totalPages, getPosts } = usePosts();
 
 onMounted(getPosts);
-
-const truncateText = (text, maxLength) => {
-  if (text.length <= maxLength) {
-    return text;
-  } else {
-    return text.substring(0, maxLength) + "...";
-  }
-};
 
 const goToPostDetail = (postId) => {
   router.push({ name: "postDetail", params: { id: postId } });

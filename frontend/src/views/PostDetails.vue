@@ -1,5 +1,7 @@
 <template>
-  <DefaultLayout>
+  <DefaultLayout
+    class="bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100"
+  >
     <div class="overflow-hidden">
       <div class="max-w-8xl mx-auto">
         <div class="flex px-4 pt-8 pb-10 lg:px-8">
@@ -23,6 +25,7 @@
           </router-link>
         </div>
       </div>
+
       <div v-if="post">
         <div class="px-4 sm:px-6 md:px-8 pb-10">
           <div class="max-w-3xl mx-auto">
@@ -86,23 +89,6 @@
             </main>
             <footer class="mt-16">
               <div class="relative pb-28">
-                <div
-                  class="absolute inset-0 w-full dark:w-screen overflow-hidden"
-                >
-                  <img
-                    src="/showcase/blog-post-form@80.92cf987c.jpg"
-                    alt=""
-                    class="absolute top-px sm:left-auto sm:right-0 left-1/4 dark:hidden max-w-none"
-                    width="476"
-                    decoding="async"
-                  /><img
-                    src="/showcase/blog-post-form-dark@90.5b274bea.jpg"
-                    alt=""
-                    class="absolute top-px -left-1/4 sm:left-0 hidden dark:block max-w-none"
-                    width="1429"
-                    decoding="async"
-                  />
-                </div>
                 <section
                   class="relative py-16 border-t border-slate-200 dark:border-slate-200/5"
                 >
@@ -163,6 +149,15 @@
         </div>
       </div>
     </div>
+    <a
+      href="#"
+      target="_blank"
+      class="md:absolute top-20 right-10 p-4 float-right"
+      ><img
+        src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-3.svg"
+        alt="Buy Me A Coffee"
+        class="transition-all rounded-full w-14 -rotate-45 hover:shadow-sm shadow-lg ring hover:ring-4 ring-white"
+    /></a>
   </DefaultLayout>
 </template>
 

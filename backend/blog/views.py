@@ -3,13 +3,16 @@ from rest_framework.filters import OrderingFilter
 from django.db.models import Q
 from django.http import Http404
 from rest_framework import viewsets
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Category, Post, Comment, Tag
 from .serializers import CategorySerializer, PostSerializer, CommentSerializer, TagSerializer
 
+from rest_framework.pagination import PageNumberPagination
+
+class LatestPostsPagination(PageNumberPagination):
+    page_size = 6
 
 class Categories(generics.ListAPIView):
     queryset = Category.objects.all()
@@ -22,10 +25,13 @@ class LatestPosts(APIView):
         return Response(serializer.data)
 
 class PostList(viewsets.ModelViewSet):
-    queryset = Post.objects.select_related('category').prefetch_related('comments', 'tag_set')  
+    paginator = LatestPostsPagination()
+    queryset = Post.objects.select_related('category').prefetch_related('comments', 'tag_set') 
     serializer_class = PostSerializer
     filter_backends = [OrderingFilter]
-    ordering = ['-published_date']  
+    ordering = ['-published_date'] 
+    pagination_class = LatestPostsPagination
+
 
 class PostDetail(viewsets.ModelViewSet):
     queryset = Post.objects.select_related('category').prefetch_related('comments', 'tag_set')

@@ -4,11 +4,18 @@ import axiosClient from "../axios";
 export default function usePosts() {
   const post = ref([]);
   const posts = ref([]);
-  const postsCount = ref([]);
+  const postsCount = ref(0);
+  const totalCount = ref(0);
+  const currentPage = ref(1);
+  const totalPages = ref(0);
+  const pageSize = 6;
 
-  const getPosts = async () => {
-    let response = await axiosClient.get("/posts");
-    posts.value = response.data;
+  const getPosts = async (pageNumber = 1) => {
+    let response = await axiosClient.get(`/posts/?page=${pageNumber}`);
+    posts.value = response.data.results;
+    totalCount.value = response.data.count;
+    currentPage.value = pageNumber;
+    totalPages.value = Math.ceil(response.data.count / pageSize);
   };
 
   const getPost = async (id) => {
@@ -21,6 +28,9 @@ export default function usePosts() {
     post,
     posts,
     postsCount,
+    totalCount,
+    currentPage,
+    totalPages,
     getPost,
     getPosts,
   };
