@@ -57,9 +57,8 @@ This is a blog project built with Django on the backend and Vue.js with Composit
 ## Folder Structure
 
     ```bash
-    .
     ├── backend/                # Django backend codebase
-    │   ├── aphrc_blog/         # Django project settings and configurations
+    │   ├── base/         # Django project settings and configurations
     │   ├── blog/               # Django blog directory
     │   └── manage.py           # Django management script
     └── frontend/               # Vue.js frontend codebase
