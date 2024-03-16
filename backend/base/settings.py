@@ -65,7 +65,7 @@ MIDDLEWARE = [
 
 APPEND_SLASH = True
 
-ROOT_URLCONF = 'aphrc_blog.urls'
+ROOT_URLCONF = 'base.urls'
 
 TEMPLATES = [
     {
@@ -83,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'aphrc_blog.wsgi.application'
+WSGI_APPLICATION = 'base.wsgi.application'
 
 
 # Database
