@@ -8,6 +8,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Category, Post, Comment, Tag
 from .serializers import CategorySerializer, PostSerializer, CommentSerializer, TagSerializer
+from django.shortcuts import render
+from django.db.models import Q
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.viewsets import ModelViewSet
+
 
 from rest_framework.pagination import PageNumberPagination
 
@@ -25,12 +31,41 @@ class LatestPosts(APIView):
         return Response(serializer.data)
 
 class PostList(viewsets.ModelViewSet):
+
     paginator = LatestPostsPagination()
     queryset = Post.objects.select_related('category').prefetch_related('comments', 'tag_set') 
     serializer_class = PostSerializer
     filter_backends = [OrderingFilter]
     ordering = ['-published_date'] 
     pagination_class = LatestPostsPagination
+
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def search(self, request):
+        query = request.query_params.get('q')
+        if query:
+            queryset = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            return Response([])
+        
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def list(self, request, *args, **kwargs):
+        query = request.query_params.get('q')
+        if query:
+            queryset = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        else:
+            return super().list(request, *args, **kwargs)
+
+
 
 
 class PostDetail(viewsets.ModelViewSet):

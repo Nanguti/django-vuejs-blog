@@ -20,8 +20,17 @@ export default function usePosts() {
 
   const getPost = async (id) => {
     let response = await axiosClient.get(`/posts/${id}`);
-    console.log("log response.. data " + response.data.title);
     post.value = response.data;
+  };
+
+  const searchPosts = async (searchQuery) => {
+    try {
+      const response = await axiosClient.get(`/search/?q=${searchQuery}`);
+      posts.value = response.data;
+      console.log("new approach using emit events" + response.data[0].title);
+    } catch (error) {
+      console.error("Error searching posts:", error);
+    }
   };
 
   return {
@@ -33,5 +42,6 @@ export default function usePosts() {
     totalPages,
     getPost,
     getPosts,
+    searchPosts,
   };
 }
