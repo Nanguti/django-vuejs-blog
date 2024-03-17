@@ -4,7 +4,7 @@
     <DefaultLayout
       class="bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100"
     >
-      <main class="mt-16 sm:mt-20 mb-16 sm:mb-20 relative">
+      <main class="mt-2 sm:mt-2 mb-16 sm:mb-20 relative">
         <div class="max-w-6xl mx-auto">
           <SearchBar @goToSearchResults="handleSearch" />
           <ul

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <hr class="border-t border-gray-500" />
     <footer class="bg-gradient-to-r from-gray-100 via-[#bce1ff] to-gray-100">
       <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+        <hr class="border-t pt-12 border-gray-500" />
+
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <img
@@ -18,7 +19,7 @@
             <div class="flex mt-8 space-x-6 text-black">
               <a
                 class="hover:opacity-75"
-                href=""
+                to="/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -38,7 +39,7 @@
               </a>
               <a
                 class="hover:opacity-75"
-                href=""
+                to="/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -58,7 +59,7 @@
               </a>
               <a
                 class="hover:opacity-75"
-                href=""
+                to="/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -76,7 +77,7 @@
               </a>
               <a
                 class="hover:opacity-75"
-                href=""
+                to="/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -102,35 +103,52 @@
             <div>
               <p class="font-medium">Company</p>
               <nav class="flex flex-col mt-4 space-y-2 text-sm text-black">
-                <a class="hover:opacity-75" href=""> About </a>
-                <a class="hover:opacity-75" href=""> Meet the Team </a>
+                <router-link class="hover:opacity-75" to="/">
+                  About
+                </router-link>
+                <router-link class="hover:opacity-75" to="/">
+                  Meet the Team
+                </router-link>
               </nav>
             </div>
             <div>
               <p class="font-medium">Services</p>
               <nav class="flex flex-col mt-4 space-y-2 text-sm text-black">
-                <a class="hover:opacity-75" href=""> 1on1 Coaching </a>
-                <a class="hover:opacity-75" href=""> Company Review </a>
+                <router-link class="hover:opacity-75" to="/">
+                  1on1 Coaching
+                </router-link>
+                <router-link class="hover:opacity-75" to="/">
+                  Company Review
+                </router-link>
               </nav>
             </div>
             <div>
               <p class="font-medium">Helpful Links</p>
               <nav class="flex flex-col mt-4 space-y-2 text-sm text-black">
-                <a class="hover:opacity-75" href=""> Contact </a>
-                <a class="hover:opacity-75" href=""> FAQs </a>
+                <router-link class="hover:opacity-75" to="/">
+                  Contact
+                </router-link>
+                <router-link class="hover:opacity-75" to="/">
+                  FAQs
+                </router-link>
               </nav>
             </div>
             <div>
               <p class="font-medium">Legal</p>
               <nav class="flex flex-col mt-4 space-y-2 text-sm text-black">
-                <a class="hover:opacity-75" href=""> Privacy Policy </a>
-                <a class="hover:opacity-75" href=""> Terms &amp; Conditions </a>
+                <router-link class="hover:opacity-75" to="/">
+                  Privacy Policy
+                </router-link>
+                <router-link class="hover:opacity-75" to="/">
+                  Terms &amp; Conditions
+                </router-link>
               </nav>
             </div>
           </div>
         </div>
+        <hr class="border-t mt-12 border-gray-500" />
         <p class="flex justify-center mt-8 text-xs text-gray-800">
-          © {{ getDate }} African Population & Health Research Center
+          © {{ getDate }} African Population & Health Research Center.
         </p>
       </div>
     </footer>
