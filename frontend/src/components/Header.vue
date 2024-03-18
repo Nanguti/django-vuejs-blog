@@ -60,8 +60,8 @@
                       active ? 'bg-gray-100' : '',
                       'block px-4 py-2 text-sm text-gray-700',
                     ]"
-                    >Your Profile</a
-                  >
+                    ><span class="capitalize">{{ userData.username }}</span>
+                  </a>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
                   <a
@@ -74,13 +74,13 @@
                   >
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                  <a
-                    href="#"
+                  <span
+                    @click="logout"
                     :class="[
                       active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
+                      'block px-4 py-2 text-sm text-gray-700 cursor-pointer',
                     ]"
-                    >Sign out</a
+                    >Sign out</span
                   >
                 </MenuItem>
               </MenuItems>
@@ -122,6 +122,41 @@ import {
   MenuItems,
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { ref } from "vue"; // Assuming you're using Vue 3
+import axiosClient from "../axios";
 
 const navigation = [{ name: "Home", href: "/", current: true }];
+
+const userData = ref({});
+const storedUserData = localStorage.getItem("userData");
+if (storedUserData) {
+  userData.value = JSON.parse(storedUserData);
+}
+
+const logout = async () => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const response = await axiosClient.post(
+        "/auth/token/logout/",
+        {},
+        {
+          headers: {
+            Authorization: `Token ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 204) {
+        localStorage.removeItem("accessToken");
+        console.log("Logout successful");
+      } else {
+        console.error("Failed to logout:", response.data);
+      }
+    } else {
+      console.error("Access token not found");
+    }
+  } catch (error) {
+    console.error("Logout error:", error.response.data);
+  }
+};
 </script>
